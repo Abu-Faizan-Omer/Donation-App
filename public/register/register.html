@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welocme to Register Page</h1>
+    <form id="form">
+        <label for="charityid">Charity Name:</label>
+        <input type="text" id="charityid" name="charity" required><br><br>
+        <label for="emailid">Charity Email:</label>
+        <input type="text" id="emailid" name="email" required><br><br>
+        <label for="misssonid">Mission:</label>
+        <textarea id="misssonid" name="misson" required></textarea><br><br>
+        <label for="amountid">Total Amount:</label>
+        <input type="text" id="amountid" name="amount" required><br><br>
+        <label for="goalid">Donation Goal:</label>
+        <input type="number" id="goalid" name="goal" required><br><br>
+        <button type="submit">Register Charity</button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../register/register.js"></script>
+</body>
+</html>
