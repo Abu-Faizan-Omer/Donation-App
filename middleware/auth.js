@@ -2,7 +2,7 @@ const jwt=require("jsonwebtoken")
 const User=require("../models/user")
 
 const authenticate=(req,res,next)=>{
-    const token=req.heahers("Authorization")
+    const token=req.headers("Authorization")
     console.log("token ",token)
     if(!token)
     {

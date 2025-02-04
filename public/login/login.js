@@ -13,12 +13,12 @@ form.addEventListener("submit",async(event)=>{
         if(response.status==200)
      {
         alert(response.data.message)
-        localStorage.setItem("token",response.data.tokek)
+        localStorage.setItem("token",response.data.token)
         console.log("response.data.token",response.data.token)
         if (response.data.isAdmin) {
             window.location.href = "../admin/admin.html"
         } else {
-            window.location.href = "../home/home.html"
+            window.location.href = "../charity/charity.html"
         }
     }
 }catch(err)

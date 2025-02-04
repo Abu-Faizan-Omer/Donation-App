@@ -12,6 +12,13 @@ const currentDirectory=path.join(__dirname,"public")
 
 //routes
 const userRoutes=require("./routes/user")
+const charityRoutes=require("./routes/charity")
+const donationRotes=require("./routes/donation")
+
+//table
+const User=require("./models/user")
+const Charity=require("./models/charity")
+const Donation=require("./models/donation")
 
 //middleware
 app.use(cors())
@@ -20,7 +27,15 @@ app.use(bodyparser.json())
 app.use(express.static(currentDirectory))
 
 app.use("/user",userRoutes)
+app.use("/charity",charityRoutes)
+app.use("/donation",donationRotes)
 
+// Relationships
+User.hasMany(Donation);
+Donation.belongsTo(User);
+
+Charity.hasMany(Donation);
+Donation.belongsTo(Charity);
 
 
 sequelize.sync()
