@@ -2,12 +2,12 @@ const express=require("express")
 const router=express.Router()
 
 const charityController=require("../controllers/charity")
-const authentication=require("../middleware/auth")
+const authenticateMiddleware=require("../middleware/auth")
 
 router.post("/register",charityController.registerCharity)
 router.get("/getcharity",charityController.getCharities)
 router.put("/approve/:id",charityController.approveCharity)
-router.get("/unapprove",charityController.getUnapproveCharities)
+router.get("/unapprove",authenticateMiddleware.authenticate,charityController.getUnapproveCharities)
 // Reject a charity
 router.delete("/reject/:id", charityController.rejectCharity);
 

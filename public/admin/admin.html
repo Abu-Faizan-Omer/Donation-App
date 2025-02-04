@@ -19,8 +19,17 @@
 
         button.addEventListener("click", async () => {
             try {
-                const response = await axios.get("http://localhost:2000/charity/unapprove");
+                const token=localStorage.getItem("token")
+                console.log("token ",token)
+                const response = await axios.get("http://localhost:2000/charity/unapprove",{
+                headers: { 'Authorization': token }
+                 });
                 console.log("Response:", response.data);
+
+                // Check if response is 403 (Not authorized)
+                if (response.status === 403) {
+                    alert("Only admins have access!");   
+                  }
 
                 if (response.status === 201) {
                     const charities = response.data.allCharity; // Assuming the response contains `allCharity`

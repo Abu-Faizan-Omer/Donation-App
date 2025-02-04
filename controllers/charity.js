@@ -1,5 +1,9 @@
 const Charity = require("../models/charity");
+const User=require("../models/user")
 const sequelize=require("sequelize")
+
+const sendEmail = require('../services/email');
+
 // Charity Registration
 exports.registerCharity = async (req, res) => {
   try {
@@ -24,6 +28,12 @@ exports.registerCharity = async (req, res) => {
 //Get All UnApprove Charity
 exports.getUnapproveCharities=async (req,res)=>{
   try{
+    const userId = req.user.id; // Get the user ID from the request (from session/token)
+    console.log("userID---",userId)
+    const user = await User.findOne({ where: { id: userId, isAdmin: true } });
+    if (!user) return res.status(403).json({ message: "Not authorized. Admins only." });
+
+
     const allCharity=await Charity.findAll({where:{isapprove:false}})
     return res.status(201).json({message:"Get all unaprove chaity",allCharity})//allcharity response me jata hai frontend ke pass
   }catch(err)
@@ -54,6 +64,13 @@ exports.approveCharity = async (req, res) => {
     charity.isapprove = true;
     await charity.save();
 
+    // Send email to the charity about approval
+    await sendEmail(
+      charity.email,
+      'Your Charity Has Been Approved!',
+      `<h1>Your charity "${charity.name}" has been successfully approved by the admin.</h1>`
+    );
+
     return res.json({ message: "Charity approved successfully", charity });
   } catch (error) {
     return res.status(500).json({ message: "Server error", error });
@@ -71,6 +88,13 @@ exports.rejectCharity = async (req, res) => {
       }
 
       await charity.destroy(); // Delete the charity from the database
+
+       // Send email to the charity about rejection
+    await sendEmail(
+      charity.email,
+      'Your Charity Has Been Rejected',
+      `<h1>We regret to inform you that your charity "${charity.name}" has been rejected.</h1>`
+    );
 
       return res.status(200).json({ message: "Charity rejected successfully" });
   } catch (error) {
