@@ -1,3 +1,4 @@
+console.log("this is register page")
 const form=document.getElementById("form")
 form.addEventListener("submit",async(event)=>{
     try{
@@ -18,6 +19,7 @@ form.addEventListener("submit",async(event)=>{
     {
         alert("Charity register Successfully Register")
         form.reset()
+        window.location.href="./home"
     }
 }catch(err){
     console.log("Not register",err)

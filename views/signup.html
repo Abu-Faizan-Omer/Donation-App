@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="/css/signup.css">
+<!-- <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 30px;
+        background-color: #f5f6fa;
+    }
+
+    h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    form {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2c3e50;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+</style> -->
+<body>
+    <h1>Welocme to Signup Page</h1>
+    <form id="form">
+        <label for="nameid">Name:</label>
+        <input type="text" id="nameid" name="username" required>
+        <label for="emailid">Email :</label>
+        <input type="email" id="emailid" name="email" required>
+        <label for="passwordid">Password :</label>
+        <input type="text" name="password" id="passwordid" required>
+        <label for="adminemailid">Admin Email (if admin):</label>
+        <input type="email" name="adminemail" id="adminemailid"><br><br>
+        <button type="submit">Signup</button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- <script src="../signup/signup.js"></script> -->
+    <script src="/js/signup.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Charity Donation Platform</title>
+</head>
+<link rel="stylesheet" href="/css/charity.css">
+
+<body>
+    <h1>Available Approve Charities</h1>
+    <div>
+        <h4>..........Filter.........</h4>
+        <form id="filterForm">
+            <label for="locationid">Location</label>
+            <input type="text" name="location" id="locationid"><br><br>
+
+            <label for="categoryid">Category</label>
+            <input type="text" name="category" id="categoryid"><br><br>
+
+            <button type="submit" id="search">Search</button><br><br>
+        </form>
+    </div>
+    <button id="getcharity">FetchCharity</button>
+    <div id="div">
+        <ul id="ul"></ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- <script src="./charity.js"></script> -->
+    <script src="/js/charity.js"></script>
+</body>
+</html>

@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
-</head>
-<body>
-    <h1>Welcome to Admin Page</h1>
-    <button id="getall">Get Charity To Approve</button>
-    <h4>All Charity To Approve</h4>
-    <div id="unapprove"></div> <!-- This will display the list of unapproved charities -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        console.log("Hi Admin");
+console.log("Hi Admin");
 
         const button = document.getElementById("getall");
         const unapproveDiv = document.getElementById("unapprove");
@@ -85,6 +71,3 @@
                 alert("Failed to reject charity.");
             }
         }
-    </script>
-</body>
-</html>

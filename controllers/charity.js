@@ -28,8 +28,9 @@ exports.registerCharity = async (req, res) => {
 //Get All UnApprove Charity
 exports.getUnapproveCharities=async (req,res)=>{
   try{
-    const userId = req.user.id; // Get the user ID from the request (from session/token)
+    const userId = req.user.id; // Get the user ID from the request (from token)
     console.log("userID---",userId)
+    //check it is admin or not
     const user = await User.findOne({ where: { id: userId, isAdmin: true } });
     if (!user) return res.status(403).json({ message: "Not authorized. Admins only." });
 
@@ -43,15 +44,7 @@ exports.getUnapproveCharities=async (req,res)=>{
   }
 }
 
-// Get All Approved Charities
-exports.getCharities = async (req, res) => {
-  try {
-    const allcharities = await Charity.findAll({ where: { isapprove: true } });
-    return res.status(200).json({message:"Get all approve charity",allcharities});
-  } catch (error) {
-    return res.status(500).json({ message: "Server error", error });
-  }
-};
+
 
 // Admin - Approve Charity
 exports.approveCharity = async (req, res) => {
@@ -102,15 +95,27 @@ exports.rejectCharity = async (req, res) => {
   }
 };
 
+// Get All Approved Charities
+exports.getCharities = async (req, res) => {
+  try {
+    const allcharities = await Charity.findAll({ where: { isapprove: true } });
+    return res.status(200).json({message:"Get all approve charity",allcharities});
+  } catch (error) {
+    return res.status(500).json({ message: "Server error", error });
+  }
+};
+
+
 // Get Charity Details by ID
 exports.getCharityById = async (req, res) => {
   try {
     const { id } = req.params;
     const charity = await Charity.findByPk(id);
+    console.log("charity",charity)
     if (!charity) {
-      return res.status(404).json({ message: "Charity not found" });
+      return res.status(404).json({ message: "Charity not found-" });
     }
-    return res.status(200).json({ charity });
+    return res.status(200).json({ message:charity });
   } catch (error) {
     return res.status(500).json({ message: "Server error", error });
   }
@@ -129,7 +134,7 @@ exports.donateToCharity = async (req, res) => {
     let charity = await Charity.findByPk(id);
     console.log('charity>>>>>>>>>',charity)
     if (!charity) {
-      return res.status(404).json({ message: "Charity not found" });
+      return res.status(404).json({ message: "Charity not found!" });
     }
 
     // Check if donation exceeds the goal
@@ -137,12 +142,39 @@ exports.donateToCharity = async (req, res) => {
       return res.status(400).json({ message: "Donation exceeds the goal limit!" });
     }
 
-    // Update the total amount donated
+    // specifically Update the total amount donated cololumn only
     charity.totalAmount = parseInt(charity.totalAmount) + parseInt(donationAmount);
     await charity.save();
 
     return res.status(200).json({ message: "Donation successful", charity });
   } catch (error) {
     return res.status(500).json({ message: "Server error", error });
+  }
+};
+
+
+// Filter Charities by Location and Category
+exports.filterCharities = async (req, res) => {
+  console.log("this is filter ")
+  try {
+      const { location, category } = req.query;
+
+      // Build the filter object
+      const filter = { isapprove: true }; // Only show approved charities
+      if (location) filter.location = location;
+      if (category) filter.category = category;
+
+      console.log("location= ",req.query.location)
+
+      // Find charities based on the filter
+      const charities = await Charity.findAll({ where: filter });
+
+      if (charities.length === 0) {
+          return res.status(404).json({ message: "No charities found for the given criteria." });
+      }
+
+      return res.status(200).json({ message: "Filtered charities", charities });
+  } catch (error) {
+      return res.status(500).json({ message: "Server error", error });
   }
 };

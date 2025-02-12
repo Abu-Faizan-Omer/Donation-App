@@ -16,7 +16,7 @@ const sendEmail = async (to, subject, htmlContent) => {
   const recipients = [{ email: to }];
 
   const email = new SibApiV3Sdk.SendSmtpEmail({
-    sender,
+    sender: sender,
     to: recipients,
     subject: subject,
     htmlContent: htmlContent,
@@ -27,6 +27,7 @@ const sendEmail = async (to, subject, htmlContent) => {
     console.log('Email sent successfully:', response);
   } catch (error) {
     console.error('Error sending email:', error);
+    
   }
 };
 

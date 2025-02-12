@@ -1,3 +1,4 @@
+console.log("this is login page")
 const form=document.getElementById("form")
 form.addEventListener("submit",async(event)=>{
     try{
@@ -14,11 +15,21 @@ form.addEventListener("submit",async(event)=>{
      {
         alert(response.data.message)
         localStorage.setItem("token",response.data.token)
+
+        //if older filter data is there then it should be
+        const oldFilterData=localStorage.getItem("searchFilter")
+        console.log("oldfilter ",oldFilterData)
+        if(oldFilterData)
+        {
+            localStorage.removeItem('searchFilter')
+        }
+        console.log("oldfilter222 ",oldFilterData)
+
         console.log("response.data.token",response.data.token)
         if (response.data.isAdmin) {
-            window.location.href = "../admin/admin.html"
+            window.location.href = "./admin"
         } else {
-            window.location.href = "../charity/charity.html"
+            window.location.href = "./charity"
         }
     }
 }catch(err)

@@ -18,7 +18,7 @@ const fetchRazorpayKey = async () => {
 // Call the function to fetch Razorpay key
 fetchRazorpayKey();
 
-// Handle Donation Form Submission
+// Handle Donation Form Submission 1
 const donationForm = document.getElementById("donationForm");
 donationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -27,8 +27,11 @@ donationForm.addEventListener("submit", async (event) => {
 
     // Validate if the donation amount is within the goal
     try {
+        console.log("charityId ",charityId)
         const response = await axios.get(`http://localhost:2000/charity/${charityId}`);
-        const charity = response.data.charity;
+        const charity = response.data.message;
+        console.log("responsedata",response.data)
+        console.log("charity ",charity)
 
         if (parseInt(donationAmount) + parseInt(charity.totalAmount) > charity.donationGoal) {
             alert("Donation exceeds the goal limit!");
@@ -63,31 +66,26 @@ donationForm.addEventListener("submit", async (event) => {
                     const token=localStorage.getItem('token')
                     const decodeToken=parseJwt(token) //decoded token to knowits Premium useror Not
                     console.log('decodeToken>>>>',decodeToken)
+                    console.log("token in save-donation",token)
                     
                     // Save donation record in the database
-                    const donationResponse = await axios.post("http://localhost:2000/donation/save-donation", {
+                    const donationResponse = await axios.post("http://localhost:2000/donation/save-donation",{
                         donationAmount: donationAmount,
                         paymentId: response.razorpay_payment_id, // Razorpay payment ID
                         status: "success", // Payment status
 
                         userId: decodeToken.userId, // Replace with actual user ID (e.g., from session or token)
                         charityId: charityId, // Charity ID
-                    });
+                    },{
+                        headers: { 'Authorization': token }
+                         });
 
                     if (donationResponse.status === 200) {
                         alert("Donation recorded successfully!");
-                        window.location.href = "../home/home.html"; // Redirect to home page
+                        window.location.href = "./home"; // Redirect to home page
                     }
                 }
-            },
-            prefill: {
-                name: "Donor Name",
-                email: "donor@example.com",
-                contact: "9999999999",
-            },
-            theme: {
-                color: "#3399cc",
-            },
+            }
         };
 
         // Open Razorpay Payment Modal

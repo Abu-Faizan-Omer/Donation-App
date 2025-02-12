@@ -1,3 +1,4 @@
+console.log("this is signup js page")
 const form=document.getElementById("form")
 form.addEventListener("submit",async(e)=>{
     try{
@@ -11,7 +12,7 @@ form.addEventListener("submit",async(e)=>{
     const response=await axios.post(`http://localhost:2000/user/signup`,signupDetails)
     if(response.status==201)
     {
-        window.location.href="../login/login.html"
+        window.location.href="./login"
         alert("Successfully signup")
     }
     else

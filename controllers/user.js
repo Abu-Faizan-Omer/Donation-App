@@ -18,7 +18,7 @@ exports.signup=async(req,res)=>{
         const hash=await bcrypt.hash(password,saltround)
 
          // Check if adminEmail matches
-         const isAdmin = adminEmail === "admin@example.com"; // Replace with your admin email
+         const isAdmin = adminEmail === "admin@example.com"; 
 
         const newUser=await User.create({name,email,password:hash,isAdmin})
         return res.status(201).json({message:"User create Succesfully in DB"})
