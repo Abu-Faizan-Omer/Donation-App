@@ -21,6 +21,7 @@ router.delete("/reject/:id", charityController.rejectCharity);
 // Filter Charities by Location and Category
 router.get("/filter", charityController.filterCharities);
 
+
 // Get Charity Details by ID 55
 router.get("/:id", charityController.getCharityById);
 

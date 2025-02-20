@@ -49,9 +49,11 @@ app.use("/donation",donationRotes)
 // app.get("/donation",(req,res,next)=>{
 //     res.sendFile(path.join(__dirname,"views", "donation.html"))
 // })
+
 // app.get("/charity",(req,res,next)=>{
 //     res.sendFile(path.join(__dirname,"views", "charity.html"))
 // })
+
 // app.get("/admin",(req,res,next)=>{
 //     res.sendFile(path.join(__dirname,"views", "admin.html"))
 // })
@@ -59,6 +61,11 @@ app.use("/donation",donationRotes)
 //     res.sendFile(path.join(__dirname,"views", "test.html"))
 // })
 ////----------------------------------------------------------------------------------
+
+// Serve home page
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'home.html'));  // Home page is home.html
+});
 
 // Serve HTML files dynamically from /views folder
 app.get("/:page", (req, res) => {
@@ -70,10 +77,7 @@ app.get("/:page", (req, res) => {
     });
 });
 
-// Serve home page
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'home.html'));  // Home page is home.html
-});
+
 
 // app.get("*",(req,res)=>{
 //     const requestUrl=req.url
